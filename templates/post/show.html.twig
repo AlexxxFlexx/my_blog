@@ -101,7 +101,7 @@
 							<a href="{{ path('post_edit', {'id': post.id}) }}" class="btn btn-success rounded-pill shadow-lg me-2">
 								Modifier
 							</a>
-							<form method="post" action="{{ path('post_delete', {'id': post.id}) }}" style="display: inline;">
+							<form method="post" action="{{ path('post_delete', {'id': post.id}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');" style="display: inline;">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
 								<button class="btn btn-danger rounded-pill shadow-lg">
 									Supprimer

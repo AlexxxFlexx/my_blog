@@ -15,29 +15,35 @@
 							<th>Email</th>
 							<th>Prénom</th>
 							<th>Nom</th>
-                            <th>Rôle</th>
+							<th>Rôle</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for user in users %}
-							<tr>
-								<td>{{ user.id }}</td>
-								<td>{{ user.email }}</td>
-								<td>{{ user.firstName }}</td>
-								<td>{{ user.lastName }}</td>
-                                <td>{{ user.roles[0] }}</td>
-								<td>
-									<form method="post" action="{{ path('user_promote', {'id': user.id}) }}" style="display:inline;">
-										<input type="hidden" name="_token" value="{{ csrf_token('promote' ~ user.id) }}">
-										<button class="btn btn-success btn-sm">Valider le compte</button>
-									</form>
-                                    <form method="post" action="{{ path('user_delete', {'id': user.id}) }}" style="display:inline;">
-										<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-										<button class="btn btn-danger btn-sm">Désactiver le compte</button>
-									</form>
-								</td>
-							</tr>
+							{% if user.id != 1 %}
+								<tr>
+									<td>{{ user.id }}</td>
+									<td>{{ user.email }}</td>
+									<td>{{ user.firstName }}</td>
+									<td>{{ user.lastName }}</td>
+									<td>{{ user.roles[0] }}</td>
+									<td>
+										<form method="post" action="{{ path('user_promote', {'id': user.id}) }}" style="display:inline;">
+											<input type="hidden" name="_token" value="{{ csrf_token('promote' ~ user.id) }}">
+											<button class="btn btn-success btn-sm">
+												<i class="fas fa-check-square"></i>
+												Valider le compte</button>
+										</form>
+										<form method="post" action="{{ path('user_delete', {'id': user.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');" style="display: inline;">
+											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+											<button class="btn btn-danger btn-sm">
+												<i class="fas fa-trash"></i>
+												Désactiver le compte</button>
+										</form>
+									</td>
+								</tr>
+							{% endif %}
 						{% endfor %}
 					</tbody>
 				</table>

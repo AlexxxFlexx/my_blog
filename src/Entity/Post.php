@@ -43,6 +43,7 @@ class Post
     public function __construct()
     {
         $this->comment = new ArrayCollection();
+        $this->publishedAt = new \DateTime(); // Initialise la date de publication
     }
 
     public function getId(): ?int

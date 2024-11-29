@@ -42,21 +42,22 @@ class PostController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $post = new Post();
-        $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
+       $post = new Post();
+    $form = $this->createForm(PostType::class, $post);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $post->setPublishedAt(new \DateTime());
-            $entityManager->persist($post);
-            $entityManager->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Définit automatiquement l'utilisateur courant
+        $post->setUser($this->getUser());
+        $entityManager->persist($post);
+        $entityManager->flush();
 
-            return $this->redirectToRoute('post');
-        }
+        return $this->redirectToRoute('post');
+    }
 
-        return $this->render('post/new.html.twig', [
-            'postForm' => $form->createView(),
-        ]);
+    return $this->render('post/new.html.twig', [
+        'postForm' => $form->createView(),
+    ]);
     }
 
     #[Route('/post/edit/{id}', name: 'post_edit')]
@@ -86,9 +87,13 @@ class PostController extends AbstractController
         return $this->redirectToRoute('post');
     }
 
-    #[Route('/post/{id}', name: 'post_show')]
+    #[Route('/post/{id}', name: 'post_show', methods: ['GET'])]
     public function show(Post $post): Response
     {
+        if (!$post) {
+            throw $this->createNotFoundException('Post not found');
+        }
+        
         return $this->render('post/show.html.twig', [
             'post' => $post
         ]);

@@ -12,6 +12,10 @@ post_new:
 post_list:
     path: /posts
     controller: App\Controller\PostController::list
+post_show:
+    path: /post/{id}
+    controller: App\Controller\PostController::show
+    methods: GET
 user_list:
     path: /admin/users
     controller: App\Controller\UserController::list

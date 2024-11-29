@@ -43,10 +43,10 @@
 								<a href="{{ path('post_show', { 'id': post.id }) }}" class="card-link text-decoration-none icon-link icon-link-hover mb-3" style="--bs-link-hover-color-rgb: 25, 135, 84;">Consulter le post</a>
 								{% if is_granted('ROLE_ADMIN') %}
 									<div>
-										<a href="{{ path('post_edit', {'id': post.id}) }}" class="btn btn-success rounded-pill shadow-lg">Modifier</a>
-										<form method="post" action="{{ path('post_delete', {'id': post.id}) }}">
+										<a href="{{ path('post_edit', {'id': post.id}) }}" class="btn btn-success rounded-pill shadow-lg fas fa-edit">Modifier</a>
+										<form method="post" action="{{ path('post_delete', {'id': post.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce post ?');" style="display: inline;">
 											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
-											<button class="btn btn-danger mt-2 rounded-pill shadow-lg">Supprimer</button>
+											<button class="btn btn-danger mt-2 rounded-pill shadow-lg fas fa-trash">Supprimer</button>
 										</form>
 									</div>
 								{% endif %}
