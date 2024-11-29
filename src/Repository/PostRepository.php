@@ -22,31 +22,53 @@ class PostRepository extends ServiceEntityRepository
             ->orderBy('a.id', 'ASC')
             ->getQuery()
             ->getResult();
-            // ou $this->findAll();
+        // ou $this->findAll();
     }
 
-//    /**
-//     * @return Post[] Returns an array of Post objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findAllSorted(string $sortBy = 'newest'): array
+    {
+        $qb = $this->createQueryBuilder('p');
 
-//    public function findOneBySomeField($value): ?Post
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        switch ($sortBy) {
+            case 'oldest':
+                $qb->orderBy('p.publishedAt', 'ASC');
+                break;
+            case 'category':
+                $qb->leftJoin('p.category', 'c')
+                    ->orderBy('c.name', 'ASC')
+                    ->addOrderBy('p.publishedAt', 'DESC');
+                break;
+            case 'newest':
+            default:
+                $qb->orderBy('p.publishedAt', 'DESC');
+                break;
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    //    /**
+    //     * @return Post[] Returns an array of Post objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('p.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Post
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

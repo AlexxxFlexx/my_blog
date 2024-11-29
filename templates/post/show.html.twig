@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ post.title }}
+{% endblock %}
+
+{% block body %}
+	<body class="bg-dark bg-gradient">
+		<div class="container pt-5">
+			<div
+				class="card shadow-lg bg-light bg-gradient rounded">
+				<!-- Post Header -->
+				<div class="card-header bg-dark text-white text-center">
+					<h1>{{ post.title }}</h1>
+					<p class="fs-5 mb-0">
+						Publié le
+						{{ post.publishedAt|date('d/m/Y') }}
+					</p>
+				</div>
+
+				<!-- Post Content -->
+				<div
+					class="card-body p-4">
+					<!-- Post Image -->
+					<div class="text-center mb-4 w-50 mx-auto">
+						<img src="{{ post.picture }}" class="img-fluid rounded shadow-lg" alt="{{ post.title }}">
+					</div>
+
+					<!-- Post Details -->
+					<div class="row mt-4">
+						<div class="col-12">
+							<div class="p-3 bg-light rounded shadow-sm">
+								<h5 class="border-bottom pb-2">
+									Description
+								</h5>
+								<p>{{ post.content }}</p>
+							</div>
+						</div>
+
+						<!-- Category Info -->
+						<div class="col-12 mt-3">
+							<div class="p-3 bg-light rounded shadow-sm">
+								<h5>
+									Catégorie:
+									<span class="badge bg-dark">{{ post.category.name }}</span>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- Comments Section -->
+					<div class="mt-4">
+						<h3 class="border-bottom pb-2">Commentaires</h3>
+
+						{% if is_granted('ROLE_USER') %}
+							<div class="mb-4">
+								<form method="post" action="{{ path('comment_add', {'id': post.id}) }}">
+									<div class="form-group">
+										<textarea name="content" class="form-control shadow-sm" rows="3" placeholder="Votre commentaire..." required></textarea>
+									</div>
+									<button type="submit" class="btn btn-dark mt-2 rounded-pill shadow-sm">Publier le commentaire</button>
+								</form>
+							</div>
+						{% endif %}
+
+						<div class="comments-list">
+							{% for comment in post.comment %}
+								<div class="comment card shadow-sm mb-3">
+									<div class="card-body">
+										<div class="d-flex justify-content-between">
+											<h6 class="card-subtitle mb-2 text-muted">
+												{{ comment.user.firstName }}
+												{{ comment.user.lastName }}
+												<small class="text-muted">-
+													{{ comment.createdAt|date('d/m/Y H:i') }}</small>
+											</h6>
+											{% if is_granted('ROLE_ADMIN') or app.user == comment.user %}
+												<form method="post" action="{{ path('comment_delete', {'id': comment.id}) }}" style="display: inline;">
+													<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+													<button class="btn btn-danger btn-sm rounded-pill">Supprimer</button>
+												</form>
+											{% endif %}
+										</div>
+										<p class="card-text mt-2">{{ comment.content }}</p>
+									</div>
+								</div>
+							{% else %}
+								<p class="text-muted">Aucun commentaire pour le moment.</p>
+							{% endfor %}
+						</div>
+					</div>
+
+					{% if not is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+						<div class="alert alert-danger text-center mt-3">
+							<p class="mb-0">Connectez-vous pour laisser un commentaire</p>
+						</div>
+					{% endif %}
+
+					<!-- Admin Actions -->
+					{% if is_granted('ROLE_ADMIN') %}
+						<div class="text-center mt-4">
+							<a href="{{ path('post_edit', {'id': post.id}) }}" class="btn btn-success rounded-pill shadow-lg me-2">
+								Modifier
+							</a>
+							<form method="post" action="{{ path('post_delete', {'id': post.id}) }}" style="display: inline;">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+								<button class="btn btn-danger rounded-pill shadow-lg">
+									Supprimer
+								</button>
+							</form>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</body>
+{% endblock %}

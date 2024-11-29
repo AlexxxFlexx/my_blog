@@ -24,14 +24,14 @@ class RegistrationFormType extends AbstractType
             ->add('firstName', TextType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter your first name',
+                        'message' => 'Entre votre prénom',
                     ]),
                 ],
             ])
             ->add('lastName', TextType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter your last name',
+                        'message' => 'Entre votre nom',
                     ]),
                 ],
             ])
@@ -42,7 +42,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devriez accepter nos thèrmes et conditions.',
                     ]),
                 ],
             ])
@@ -51,11 +51,11 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Entrez un mot de passe',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit faire au moins {{ limit }} characteres',
                         'max' => 4096,
                     ]),
                 ],

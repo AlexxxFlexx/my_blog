@@ -2,43 +2,17 @@
 
 {% block title %}Bienvenue sur Mon Blog!
 {% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('bootstrap/css/styles.css') }}" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-			padding: 20px;
-			border-radius: 8px;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		}
-		.blog-posts {
-			margin-top: 30px;
-		}
-		.blog-post {
-			margin-bottom: 20px;
-			padding: 15px;
-			background-color: #fff;
-			border-radius: 8px;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-		}
-		.about-me {
-			margin-top: 40px;
-			padding: 20px;
-			background-color: #fff;
-			border-radius: 8px;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-		}
-	</style>
-
 	<body class="bg-dark bg-gradient">
 		<div class="example-wrapper text-center bg-light bg-gradient">
 			<h1>Bienvenue dans mon Blog personnel</h1>
 			<hr>
 			<div class="welcome-message">
-				<p class="fs-6">Bonjour et bienvenue sur mon blog! Ici, je partage mes pensées, mes expériences et mes projets. J'espère que vous trouverez quelque chose d'intéressant et d'inspirant.</p>
+				<p class="fs-6">Bonjour et bienvenue sur mon blog! Ici, je partage mes pensées, mes expériences et mes projets. J'éspère que vous trouverez votre bonheur parce que j'ai jamais réussi à le trouver moi 😁.</p>
 			</div>
 			<hr>
 
@@ -47,18 +21,19 @@
 				<hr>
 				<div class="blog-post">
 					<h1 class="fs-5">Consultez les catégories !</h1>
-					<a class="btn btn-dark my-2" href="{{ path('app_category')}}">Parcourir les catégories</a>
+					<a class="btn btn-dark my-2 rounded-pill shadow-lg" href="{{ path('categories')}}">Parcourir les catégories</a>
 				</div>
 				<div class="blog-post">
 					<h1 class="fs-5">Consultez les posts !</h1>
-					<a class="btn btn-dark my-2" href="{{ path('post_list')}}">Parcourir les posts</a>
+					<a class="btn btn-dark my-2 rounded-pill shadow-lg" href="{{ path('post_list')}}">Parcourir les posts</a>
 				</div>
 			</div>
 
 			<div class="about-me">
 				<h2>⚔️ - À propos de moi - ⚔️</h2>
 				<hr>
-				<p class="fs-6">Je suis un développeur passionné par la technologie et l'innovation. J'aime partager mes connaissances et apprendre de nouvelles choses chaque jour.</p>
+				<p class="fs-6">Depuis tout petit je suis intéressé par le domaine de l'informatique, étant donné que mes parents m'ont abandonné quand j'avais 3 mois, j'ai du apprendre et ce dès le début à marcher et à vivre tout seul. Depuis ce jour je me rends compte que je prefere une carte graphique Nvdia GeForce RTX 4090Ti PRO RGB clean Glaive 3000pagnans tromple flipette en quadruple block watercooling à Kilian Mbappe, j'ai jamais vraiment aimé le foot... ah et j'aime Lucas Oliveira aussi !!! 🇵🇹 ❤️</p>
+				<p>R</p>
 			</div>
 		</div>
 	</body>

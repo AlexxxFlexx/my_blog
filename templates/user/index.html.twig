@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs
+{% endblock %}
+
+{% block body %}
+	<body class="bg-dark bg-gradient">
+		<div class="container pt-5">
+			<div class="example-wrapper text-center bg-light bg-gradient p-4 rounded shadow">
+				<h1 class="mb-4">Liste des utilisateurs</h1>
+				<table class="table table-striped table-hover">
+					<thead class="table-dark">
+						<tr>
+							<th>ID</th>
+							<th>Email</th>
+							<th>Prénom</th>
+							<th>Nom</th>
+                            <th>Rôle</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							<tr>
+								<td>{{ user.id }}</td>
+								<td>{{ user.email }}</td>
+								<td>{{ user.firstName }}</td>
+								<td>{{ user.lastName }}</td>
+                                <td>{{ user.roles[0] }}</td>
+								<td>
+									<form method="post" action="{{ path('user_promote', {'id': user.id}) }}" style="display:inline;">
+										<input type="hidden" name="_token" value="{{ csrf_token('promote' ~ user.id) }}">
+										<button class="btn btn-success btn-sm">Valider le compte</button>
+									</form>
+                                    <form method="post" action="{{ path('user_delete', {'id': user.id}) }}" style="display:inline;">
+										<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+										<button class="btn btn-danger btn-sm">Désactiver le compte</button>
+									</form>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+{% endblock %}

@@ -1,45 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-<body class="bg-dark bg-gradient">
-    <div class="container mb-5">
-        <div class="example-wrapper text-center bg-light bg-gradient p-4 rounded shadow">
-            <h1 class="mb-4">Register</h1>
-            <hr>
+	<body class="bg-dark bg-gradient">
+		<div class="container mb-5">
+			<div class="example-wrapper text-center bg-light bg-gradient p-4 rounded shadow">
+				<h1 class="mb-4">Register</h1>
+				<hr>
 
-            {{ form_errors(registrationForm) }}
+				{{ form_errors(registrationForm) }}
 
-            {{ form_start(registrationForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
-                <div class="mb-3">
-                    {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="mb-3">
-                    {{ form_row(registrationForm.plainPassword, {
-                        'label': 'Password',
-                        'attr': {'class': 'form-control'}
-                    }) }}
-                </div>
-                <div class="mb-3">
-                    {{ form_row(registrationForm.firstName, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="mb-3">
-                    {{ form_row(registrationForm.lastName, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="mb-3">
-                    {{ form_row(registrationForm.profilePicture, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="mb-3">
-                    {{ form_row(registrationForm.createdAt, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="pb-3">
-                    {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
-                </div>
+				{{ form_start(registrationForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+				<div class="mb-3">
+					{{ form_row(registrationForm.email, {
+                            'label': 'Adresse email',
+                            'attr': {'class': 'form-control shadow-lg'}
+                        }) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.plainPassword, {
+                            'label': 'Mot de passe',
+                            'attr': {'class': 'form-control shadow-lg'}
+                        }) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.firstName, {
+                            'label': 'Prénom',
+                            'attr': {'class': 'form-control shadow-lg'}
+                        }) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.lastName, {
+                            'label': 'Nom',
+                            'attr': {'class': 'form-control shadow-lg'}
+                        }) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.profilePicture, {
+                            'label': 'Photo de profil',
+                            'attr': {'class': 'form-control shadow-lg'}
+                        }) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.createdAt, {
+                            'label': 'Date de création',
+                            'attr': {'class': 'form-control shadow-lg'}
+                        }) }}
+				</div>
+				<div class="pb-3">
+					{{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+				</div>
 
-                <button type="submit" class="btn btn-dark">S'inscrire</button>
-            {{ form_end(registrationForm) }}
-        </div>
-    </div>
-</body>
+				<button type="submit" class="btn btn-dark rounded-pill shadow-lg">S'inscrire</button>
+				{{ form_end(registrationForm) }}
+			</div>
+		</div>
+	</body>
 {% endblock %}

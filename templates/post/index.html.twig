@@ -1,20 +1,60 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
+	<body class="bg-dark bg-gradient">
 
-	{% for post in posts %}
-		<div class="card" style="width: 18rem;">
-			<img class="card-img-top" src="{{ post.picture }}" alt="{{ post.title }}">
-			<div class="card-body">
-				<h5 class="card-title">{{ post.title }}</h5>
-				<p class="card-text">{{ post.content }}</p>
-			</div>
-			<div class="card-body">
-				<a href="{{ path('post_list')}}" class="card-link">Consulter le post</a>
-			</div>
-		{% else %}
-			<li class="list-group-item">Aucun post trouvé.</li>
-		{% endfor %}
+		<div class="container bg-light rounded p-5">
+			<h1 class="fs-2 text-center pb-2">🐚 - Voici les différents posts - 🐚</h1>
+			<hr
+			class="pb-2">
 
+			{# Ajout des boutons de tri #}
+			<div class="mb-4 text-center">
+				<div class="btn-group" role="group" aria-label="Trier les posts">
+					<a href="{{ path('post', {'sort': 'newest'}) }}" class="btn btn-dark rounded-pill shadow-lg me-2 {% if currentSort == 'newest' %}active{% endif %}">
+						Plus récents
+					</a>
+					<a href="{{ path('post', {'sort': 'oldest'}) }}" class="btn btn-dark rounded-pill shadow-lg me-2 {% if currentSort == 'oldest' %}active{% endif %}">
+						Plus anciens
+					</a>
+					<a href="{{ path('post', {'sort': 'category'}) }}" class="btn btn-dark rounded-pill shadow-lg {% if currentSort == 'category' %}active{% endif %}">
+						Par catégorie
+					</a>
+				</div>
+			</div>
+
+			{% if is_granted('ROLE_ADMIN') %}
+				<div class="text-end mb-3">
+					<a href="{{ path('post_new') }}" class="btn btn-dark d-block mx-auto rounded-pill shadow-lg">Ajouter un post</a>
+				</div>
+			{% endif %}
+
+			<div class="row">
+				{% for post in posts %}
+					<div class="col-sm-12 col-md-6 col-lg-4">
+						<div class="card shadow-lg mb-4">
+							<img class="card-img-top img-fluid" src="{{ post.picture }}" alt="{{ post.title }}">
+							<div class="card-body">
+								<h5 class="card-title">{{ post.title }}</h5>
+								<hr>
+								<p class="card-text">{{ post.content }}</p>
+								<p class="card-text">Publié le
+									{{ post.publishedAt|date('d/m/Y') }}</p>
+								<a href="{{ path('post_show', { 'id': post.id }) }}" class="card-link text-decoration-none icon-link icon-link-hover mb-3" style="--bs-link-hover-color-rgb: 25, 135, 84;">Consulter le post</a>
+								{% if is_granted('ROLE_ADMIN') %}
+									<div>
+										<a href="{{ path('post_edit', {'id': post.id}) }}" class="btn btn-success rounded-pill shadow-lg">Modifier</a>
+										<form method="post" action="{{ path('post_delete', {'id': post.id}) }}">
+											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+											<button class="btn btn-danger mt-2 rounded-pill shadow-lg">Supprimer</button>
+										</form>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</body>
 {% endblock %}

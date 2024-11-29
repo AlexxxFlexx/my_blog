@@ -1,45 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Log in!
+{% endblock %}
 
 {% block body %}
-{% if app.user %}
-        <script>
-            window.location.href = "{{ path('app_main') }}";
-        </script>
-    {% else %}
-<body class="bg-dark bg-gradient">
-    <div class="container mb-5">
-        <div class="example-wrapper text-center bg-light bg-gradient p-4 rounded shadow">
-            <h1 class="mb-4">Please sign in</h1>
-            <hr>
-            <form method="post">
-                <div class="mb-3">
-                    <label for="username">Email</label>
-                    <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-                </div>
-                <div class="mb-3">
-                    <label for="password">Password</label>
-                    <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-                </div>
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                {#
-                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                    See https://symfony.com/doc/current/security/remember_me.html
-
-                    <div class="checkbox mb-3">
-                        <input type="checkbox" name="_remember_me" id="_remember_me">
-                        <label for="_remember_me">Remember me</label>
-                    </div>
-                #}
-                <button class="btn btn-lg btn-dark mb-3" type="submit">Se connecter</button>
-                <br>
-                {% if error %}
-                 <div class="alert alert-danger">Adresse e-mail ou mot de passe invalide</div>
-                {% endif %}
-        {% endif %}
-            </form>
-        </div>
-    </div>
-</body>
-{% endblock %}
+	{% if app.user %}
+		 <script>
+		            window.location.href = "{{ path('app_main') }}";
+		        </script>
+	{% else %}
+		<body class="bg-dark bg-gradient">
+			<div class="container mb-5">
+				<div class="example-wrapper text-center bg-light bg-gradient p-4 rounded shadow">
+					<h1 class="mb-4">Connexion</h1>
+					<hr>
+					<form method="post">
+						<div class="mb-3">
+							<label for="username">Adresse email</label>
+							<input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control shadow-lg" autocomplete="email" required autofocus>
+						</div>
+						<div class="mb-3">
+							<label for="password">Mot de passe</label>
+							<input type="password" name="_password" id="password" class="form-control shadow-lg" autocomplete="current-password" required>
+						</div>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+						<div class="checkbox mb-3">
+							<input type="checkbox" name="_remember_me" id="_remember_me">
+							<label for="_remember_me">Se souvenir de moi</label>
+						</div>
+						<button class="btn btn-lg btn-dark mb-3" type="submit">Se connecter</button>
+						<br>
+						{% if error %}
+							<div class="alert alert-danger">Adresse e-mail ou mot de passe invalide</div>
+						{% endif %}
+					{% endif %}
+				</form>
+			</div>
+		</body>
+	</div>
+</body>{% endblock %}

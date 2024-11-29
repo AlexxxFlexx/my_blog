@@ -3,3 +3,31 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+post:
+    path: /post
+    controller: App\Controller\PostController::list
+post_new:
+    path: /post/new
+    controller: App\Controller\PostController::new
+post_list:
+    path: /posts
+    controller: App\Controller\PostController::list
+user_list:
+    path: /admin/users
+    controller: App\Controller\UserController::list
+user_delete:
+    path: /admin/users/delete/{id}
+    controller: App\Controller\UserController::delete
+    methods: [POST]
+
+user_promote:
+    path: /admin/users/promote/{id}
+    controller: App\Controller\UserController::promote
+    methods: [POST]
+categories:
+    path: /categories
+    controller: App\Controller\CategoryController::index
+
+# post_show:
+#     path: /post/show/{id}
+#     controller: App\Controller\PostController::show

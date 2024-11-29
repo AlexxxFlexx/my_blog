@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le post
+{% endblock %}
+
+{% block body %}
+	<body class="bg-dark bg-gradient">
+		<div class="container pt-5">
+			<div class="example-wrapper text-center bg-light bg-gradient p-4 rounded shadow">
+				<h1>Modifier le post</h1>
+				{{ form_start(postForm) }}
+				<div class="mb-3">
+					{{ form_row(postForm.title, {'attr': {'class': 'form-control shadow-lg'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(postForm.content, {'attr': {'class': 'form-control shadow-lg'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(postForm.publishedAt, {'attr': {'class': 'form-control shadow-lg'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(postForm.picture, {'attr': {'class': 'form-control shadow-lg'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(postForm.user, {'attr': {'class': 'form-control shadow-lg'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(postForm.category, {'attr': {'class': 'form-control shadow-lg'}}) }}
+				</div>
+
+				<button type="submit" class="btn btn-dark rounded-pill shadow-lg">Enregistrer</button>
+				{{ form_end(postForm) }}
+			</div>
+		</div>
+	</body>
+{% endblock %}

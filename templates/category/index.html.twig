@@ -1,42 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Catégories{% endblock %}
+{% block title %}Catégories
+{% endblock %}
 
 {% block body %}
-<body class="bg-dark bg-gradient">
-<div class="container pb-5">
-    <div class="example-wrapper text-center bg-light bg-gradient p-4 rounded shadow">
-        <h1>Liste des Catégories</h1>
-        <ul class="list-group">
-            {% for category in categories %}
-                <li class="list-group-item">
-                    <h3>{{ category.name }}</h3>
-                    <hr>
-                    {{ category.description }}
-                    <br>
-                    <a class="btn btn-dark my-2" href="{{ path('post_list')}}">Consulter les posts de cette catégorie</a>
-                    {# <ul>
-                        {% for post in category.posts %}
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="{{ post.picture }}" alt="{{ post.title }}">
-                            <div class="card-body">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                            <p class="card-text">{{ post.content }}</p>
-                        </div>
-                        <div class="card-body">
-                            <a href="{{ path('app_post')}}" class="card-link  text-decoration-none icon-link icon-link-hover" style="--bs-link-hover-color-rgb: 25, 135, 84;">Consultez le post</a>
-                        </div>
-                        {% else %}
-                            <li class="list-group-item">Aucun post trouvé.</li>
-                        {% endfor %}
-                    </ul> #}
-                </li>
-                <br>
-            {% else %}
-                <li class="list-group-item">Aucune catégorie trouvée.</li>
-            {% endfor %}
-        </ul>
-    </div>
-</div>
-</body>
+	<body class="bg-dark bg-gradient">
+		<div class="container pb-5">
+			<div class="example-wrapper text-center bg-light bg-gradient p-4 rounded shadow">
+				<h1 class="mb-4">🎥 - Liste des Catégories - 🎥</h1>
+				<ul class="list-group">
+					{% for category in categories %}
+						<li class="list-group-item rounded">
+							<h3>{{ category.name }}</h3>
+							<hr>
+							{{ category.description }}
+							<br>
+							<br>
+							<div class="d-flex flex-wrap">
+								{% for post in category.posts %}
+									<div class="card shadow-lg m-2" style="width: 10rem;">
+										<img class="card-img-top" src="{{ post.picture }}" alt="{{ post.title }}">
+										<hr>
+										<div class="card-body">
+											<h6 class="card-title">{{ post.title }}</h6>
+										</div>
+									</div>
+								{% else %}
+									<p>Aucun post trouvé.</p>
+								{% endfor %}
+							</div>
+						</li>
+						<br>
+					{% else %}
+						<li class="list-group-item">Aucune catégorie trouvée.</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</body>
 {% endblock %}

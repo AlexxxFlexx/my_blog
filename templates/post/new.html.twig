@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouveau post
+{% endblock %}
+
+{% block body %}
+	<body class="bg-dark bg-gradient">
+		<div class="container pt-5">
+			<div class="example-wrapper text-center bg-light bg-gradient p-4 rounded shadow">
+				<h1>Créer un nouveau post</h1>
+				{{ form_start(postForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+				<div class="mb-3">
+					{{ form_row(postForm.title, {'attr': {'class': 'form-control shadow-lg'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(postForm.content, {'attr': {'class': 'form-control shadow-lg'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(postForm.publishedAt, {'attr': {'class': 'form-control shadow-lg'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(postForm.picture, {'attr': {'class': 'form-control shadow-lg'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(postForm.user, {'attr': {'class': 'form-control shadow-lg'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(postForm.category, {'attr': {'class': 'form-control shadow-lg'}}) }}
+				</div>
+				<button type="submit" class="btn btn-dark rounded-pill shadow-lg">Créer le post</button>
+				{{ form_end(postForm) }}
+			</div>
+		</div>
+	</body>
+{% endblock %}
